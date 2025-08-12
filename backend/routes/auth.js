@@ -2,29 +2,42 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
-router.post("/register", async (req, res) => {
-  const { name, last_name, email, password } = req.body;
+// express_validator
+const { body, validationResult } = require("express-validator");
+const { registerValidationRules } = require("../middleware/validator");
 
-  if (!name || !last_name || !email || !password) {
-    return res.status(400).json({ error: "Tous les champs sont requis." });
+// S'incrire
+router.post("/register", registerValidationRules, async (req, res) => {
+  const erros = validationResult(req);
+  if (!erros.isEmpty()) {
+    return res.status(400).json({ erros: erros.array() });
   }
+  const { name, last_name, email, password, phone, role } = req.body;
 
   try {
-    const existingerUser = await User.findOne({ where: { email } });
-    if (existingerUser) {
-      return res.status(400).json({ error: "Email est déja utilisé" });
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email est déja utilisé." });
     }
-    const newUser = await User.create({ name, last_name, email, password });
+
+    const newUser = await User.create({
+      name,
+      last_name,
+      email,
+      password,
+      phone,
+      role,
+    });
 
     const { password: pwd, ...userWithoutPassword } = newUser.toJSON();
 
     res.status(201).json({
-      message: "Utilisateur est crée avec succès",
+      message: "utilisateur est crée avec succés",
       user: userWithoutPassword,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Erreur serveur" });
+    res.status(500).json({ error: "Erreur serveur." });
   }
 });
 
