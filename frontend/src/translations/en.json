@@ -1,0 +1,19 @@
+{
+  "signup": {
+    "title": "Create an account",
+    "subtitle": "Enter your details below",
+    "form": {
+      "name": "Name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "phone": "Phone number (facultatif)"
+    },
+    "buttons": {
+      "create": "Create Account",
+      "google": "Sign up with Google"
+    },
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Log In"
+  }
+}

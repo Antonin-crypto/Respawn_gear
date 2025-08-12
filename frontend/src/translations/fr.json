@@ -1,0 +1,19 @@
+{
+  "signup": {
+    "title": "Créer un compte",
+    "subtitle": "Entre vos information ci-dessous",
+    "form": {
+      "name": "Nom",
+      "last_name": "Votre Premon",
+      "email": "Email",
+      "password": "Mot de passe",
+      "phone": "Numéro de télèphone (facultatif)"
+    },
+    "buttons": {
+      "create": "Créer un compte",
+      "google": "S'incrire avec Google"
+    },
+    "alreadyHaveAccount": "Vous avez déja un compte ? ",
+    "loginLink": "Se connecte"
+  }
+}
