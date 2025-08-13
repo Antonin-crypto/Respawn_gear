@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import "./output.css";
 import SignUp from "./pages/SignUp";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
@@ -9,6 +9,7 @@ import EditProfile from "./pages/EditProfile";
 import Produit from "./pages/Produit";
 import ProductForm from "./pages/composent/product/ProductForm";
 import CartPage from "./pages/Cart";
+import Home from "./pages/Home";
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/produits/nouveau" element={<ProductForm />} />
         <Route path="/produits/modifier/:id" element={<ProductForm />} />
         <Route path="/panier" element={<CartPage />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );

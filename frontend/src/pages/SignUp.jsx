@@ -43,49 +43,111 @@ const SignUp = () => {
         <option value="fr">🇫🇷 Français</option>
         <option value="en">🇬🇧 English</option>
       </select>
-      <h2>{trans("signup.title")}</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder={trans("signup.form.name")}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <br />
-        <input
-          type="text"
-          placeholder={trans("signup.form.last_name")}
-          value={last_name}
-          onChange={(e) => setLast_Name(e.target.value)}
-          required
-        />
-        <br />
-        <input
-          type="email"
-          placeholder={trans("signup.form.email")}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <input
-          type="password"
-          placeholder={trans("signup.form.password")}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <input
-          type="tel"
-          name="phone"
-          placeholder={trans("signup.form.phone")}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <button type="submit">{trans("signup.buttons.create")}</button>
-      </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <header className="bg-white shadow p-4 flex justify-between items-center">
+        <div className="text-xl font-bold">Logo</div>
+        <nav className="space-x-6">
+          <a href="#" className="text-gray-700 hover:text-black">
+            Home
+          </a>
+          <a href="#" className="text-gray-700 hover:text-black">
+            Contact
+          </a>
+          <a href="#" className="text-gray-700 hover:text-black">
+            About
+          </a>
+          <a href="#" className="text-gray-700 hover:text-black">
+            Sign up
+          </a>
+        </nav>
+        <div>
+          <input
+            type="search"
+            placeholder="What are you looking for?"
+            className="border rounded px-2 py-1"
+          />
+        </div>
+      </header>
+
+      <main className="flex flex-1 bg-gray-50">
+        {/* Left image section */}
+        <div className="flex-1 flex items-center justify-center p-10">
+          <img
+            src="/path-to-your-image.png" // remplacer par ton image
+            alt="Shopping and mobile"
+            className="max-w-full max-h-[500px]"
+          />
+        </div>
+
+        <div className="w-1/3 bg-white p-10 flex flex-col justify-center">
+          <h2 className="text-2xl font-semibold mb-6">
+            {trans("signup.title")}
+          </h2>
+          <p className="mb-4">Enter your details below</p>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder={trans("signup.form.name")}
+              className="w-full border border-gray-300 rounded px-4 py-2"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="text"
+              placeholder={trans("signup.form.last_name")}
+              className="w-full border border-gray-300 rounded px-4 py-2"
+              value={last_name}
+              onChange={(e) => setLast_Name(e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="email"
+              placeholder={trans("signup.form.email")}
+              className="w-full border border-gray-300 rounded px-4 py-2"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="password"
+              placeholder={trans("signup.form.password")}
+              className="w-full border border-gray-300 rounded px-4 py-2"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <br />
+            <input
+              type="tel"
+              name="phone"
+              className="w-full border border-gray-300 rounded px-4 py-2"
+              placeholder={trans("signup.form.phone")}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <button
+              className="w-full bg-red-500 text-white rounded py-2 hover:bg-red-600 transition"
+              type="submit"
+            >
+              {trans("signup.buttons.create")}
+            </button>
+          </form>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+
+          <button className="mt-4 w-full border border-gray-300 rounded py-2 flex justify-center items-center space-x-2 hover:bg-gray-100 transition">
+            <img src="/google-icon.png" alt="Google" className="w-5 h-5" />
+            <span>Sign up with Google</span>
+          </button>
+          <p className="mt-6 text-center text-gray-600">
+            Already have account?{" "}
+            <a href="/login" className="text-red-500 hover:underline">
+              Log in
+            </a>
+          </p>
+        </div>
+      </main>
     </div>
   );
 };
