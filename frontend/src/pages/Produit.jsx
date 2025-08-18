@@ -11,6 +11,7 @@ function Produit() {
   console.log("selectedId:", id);
   console.log("selectedProduct:", selectedProduct);
   console.log("Produit envoyé au panier :", selectedProduct);
+  console.log(" ID transmis à ProductDetail :", id);
   return (
     <div>
       <h1>Respawn Gear 🛒</h1>

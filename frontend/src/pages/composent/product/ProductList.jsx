@@ -9,7 +9,7 @@ const ProductList = ({ onSelect }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/produits", { withCredentials: true })
+      .get("http://localhost:5000/produits/home", { withCredentials: true })
       .then((res) => {
         console.log("Réponse backend :", res.data);
         setProduits(res.data);
@@ -66,6 +66,19 @@ const ProductList = ({ onSelect }) => {
               style={{ cursor: "pointer" }}
               onClick={() => onSelect(produit.id)}
             >
+              {produit.images?.length > 0 ? (
+                produit.images.map((img, i) => (
+                  <img
+                    key={i}
+                    src={`${img.url}?t=${Date.now()}`}
+                    alt={`${produit.name} ${i}`}
+                    style={{ maxWidth: "300px", height: "auto" }}
+                  />
+                ))
+              ) : (
+                <p>Aucune image disponible</p>
+              )}
+
               <h3>{produit.name}</h3>
               <p>{produit.description}</p>
               <p>Prix : {produit.price}€</p>

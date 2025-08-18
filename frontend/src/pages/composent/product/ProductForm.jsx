@@ -8,11 +8,15 @@ const ProductForm = () => {
 
   const [formData, setFormData] = useState({
     name: "",
+    name_en: "",
     description: "",
+    description_en: "",
     price: "",
     categorie: "",
+    images: "",
   });
 
+  const [images, setImages] = useState([]);
   const isEdit = Boolean(id);
 
   useEffect(() => {
@@ -36,15 +40,44 @@ const ProductForm = () => {
     }));
   };
 
+  // Gestion des images
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    console.log("Fichiers sélectionnés :", files);
+    if (files.length > 5) {
+      alert("Vous ne pouvez pas sélectionner plus de 5 images");
+      return;
+    }
+    setImages(files);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    console.log("Formulaire soumis avec :", formData);
+    console.log("Images à envoyer :", images);
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key !== "images") data.append(key, value);
+    });
+    // Ajout des images
+    if (images.length > 0) {
+      // Ajouter les nouvelles images sélectionnées
+      images.forEach((file) => {
+        data.append("images", file);
+      });
+    } else if (isEdit) {
+      // Informer le backend de garder les images existantes
+      data.append("keepExistingImages", true);
+    }
 
     const request = isEdit
-      ? axios.put(`http://localhost:5000/produits/${id}`, formData, {
+      ? axios.put(`http://localhost:5000/produits/${id}`, data, {
           withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
         })
-      : axios.post("http://localhost:5000/produits", formData, {
+      : axios.post("http://localhost:5000/produits", data, {
           withCredentials: true,
+          headers: { "Content-Type": "multipart/form-data" },
         });
 
     request
@@ -68,6 +101,14 @@ const ProductForm = () => {
         onChange={handleChange}
         required
       />
+      <label>Nom en anglais :</label>
+      <input
+        type="text"
+        name="name_en"
+        value={formData.name_en}
+        onChange={handleChange}
+        required
+      />
 
       <label>Description :</label>
       <textarea
@@ -76,7 +117,13 @@ const ProductForm = () => {
         onChange={handleChange}
         required
       />
-
+      <label>Description anglais :</label>
+      <textarea
+        name="description_en"
+        value={formData.description_en}
+        onChange={handleChange}
+        required
+      />
       <label>Prix :</label>
       <input
         type="number"
@@ -93,6 +140,14 @@ const ProductForm = () => {
         value={formData.categorie}
         onChange={handleChange}
         required
+      />
+
+      <label>Images (max 5) :</label>
+      <input
+        type="file"
+        multiple
+        accept="image/*"
+        onChange={handleImageChange}
       />
 
       <button type="submit">{isEdit ? "Modifier" : "Ajouter"}</button>
