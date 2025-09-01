@@ -1,6 +1,7 @@
 {
   "signup": {
     "title": "Créer un compte",
+    "title_2": "Connecter",
     "subtitle": "Entre vos information ci-dessous",
     "form": {
       "name": "Nom",
@@ -11,9 +12,20 @@
     },
     "buttons": {
       "create": "Créer un compte",
-      "google": "S'incrire avec Google"
+      "incrire": "Se connecter",
+      "google": "S'incrire avec Google",
+      "google_log": "Se connecte avec Google"
     },
     "alreadyHaveAccount": "Vous avez déja un compte ? ",
-    "loginLink": "Se connecte"
+    "loginLink": "Se connecte",
+    "signupLink": "Inscription"
+  },
+  "header": {
+    "big_title": "Soldes d'été pour tous les souris et livraison express gratuite - 50 % de réduction !",
+    "title": "Accueil",
+    "title_2": "Contacter",
+    "title_3": "À propos",
+    "title_4": "Inscription",
+    "barre_de_recherche": "Que recherchez-vous ? "
   }
 }

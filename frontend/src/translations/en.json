@@ -1,6 +1,7 @@
 {
   "signup": {
     "title": "Create an account",
+    "title_2": "Connect",
     "subtitle": "Enter your details below",
     "form": {
       "name": "Name",
@@ -11,9 +12,20 @@
     },
     "buttons": {
       "create": "Create Account",
-      "google": "Sign up with Google"
+      "incrire": "Connect",
+      "google": "Sign up with Google",
+      "google_log": "Log in with Google"
     },
     "alreadyHaveAccount": "Already have an account?",
-    "loginLink": "Log In"
+    "loginLink": "Log In",
+    "signupLink": "Sign up"
+  },
+  "header": {
+    "big_title": "Summer Sale on all bath mice and free express delivery - 50% off!",
+    "title": "Home",
+    "title_2": "Contact",
+    "title_3": "About",
+    "title_4": "Sign up",
+    "barre_de_recherche": "What are you looking for ? "
   }
 }
