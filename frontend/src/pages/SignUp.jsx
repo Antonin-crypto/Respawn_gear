@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { trans, setLanguage } from "../translations";
-
+import Footer from "./composent/Footer";
 const SignUp = () => {
   const [name, setName] = useState("");
   const [last_name, setLast_Name] = useState("");
@@ -46,7 +46,7 @@ const SignUp = () => {
       <header className="bg-white shadow p-4 flex justify-between items-center">
         <div className="text-xl font-bold">Logo</div>
         <nav className="space-x-6">
-          <a href="#" className="text-gray-700 hover:text-black">
+          <a href="/home" className="text-gray-700 hover:text-black">
             Home
           </a>
           <a href="#" className="text-gray-700 hover:text-black">
@@ -55,7 +55,7 @@ const SignUp = () => {
           <a href="#" className="text-gray-700 hover:text-black">
             About
           </a>
-          <a href="#" className="text-gray-700 hover:text-black">
+          <a href="/sign_up" className="text-gray-700 hover:text-black">
             Sign up
           </a>
         </nav>
@@ -72,7 +72,7 @@ const SignUp = () => {
         {/* Left image section */}
         <div className="flex-1 flex items-center justify-center p-10">
           <img
-            src="/path-to-your-image.png" // remplacer par ton image
+            src="/path-to-your-image.png"
             alt="Shopping and mobile"
             className="max-w-full max-h-[500px]"
           />
@@ -148,6 +148,7 @@ const SignUp = () => {
           </p>
         </div>
       </main>
+      <Footer></Footer>
     </div>
   );
 };

@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { trans, setLanguage } from "../translations";
-import image from "../pages/composent/images/image.png";
-import logo from "../pages/composent/images/Logo de Respawn Gear.png";
-import { AuthContext } from "./contexts/AuthContext";
+import { useState } from "react";
 import {
+  Heart,
+  ShoppingCart,
+  User,
+  Search,
   MapPin,
   Phone,
   Mail,
@@ -14,148 +12,126 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
-const LoginPage = () => {
+
+export default function Page404() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [lang, setLang] = useState("fr");
-  const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
-  const handleLangChange = (e) => {
-    const newLang = e.target.value;
-    setLang(newLang);
-    setLanguage(newLang);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    console.log("Email souscrit:", email);
+    setEmail("");
+    alert("Merci pour votre abonnement !");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios.post(
-        "http://localhost:5000/api/users/login",
-        { email, password },
-        { withCredentials: true }
-      );
-
-      const userRes = await axios.get(
-        "http://localhost:5000/api/users/profile",
-        { withCredentials: true }
-      );
-      setUser(userRes.data);
-
-      navigate("/home");
-    } catch (err) {
-      console.error("Erreur de connexion:", err);
-      setError("Email ou mot de passe incorrect.");
-    }
+  const handleBackToHome = () => {
+    window.location.href = "/home";
   };
 
   return (
-    <div>
-      <div className="w-full bg-black text-white px-4 py-2 flex items-center justify-between">
-        {/* Texte à gauche */}
-        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-lg font-bold">
-          {trans("header.big_title")} ShopNow
-        </h1>
-
-        {/* Filtre / bouton à droite */}
-        <div className="ml-auto">
-          <select
-            value={lang}
-            onChange={handleLangChange}
-            className="bg-gray-800 text-white border border-gray-700 rounded px-2 py-1"
-          >
-            <option value="fr">🇫🇷 Français</option>
-            <option value="en">🇬🇧 English</option>
-          </select>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header avec bannière promotionnelle */}
+      <div className="bg-black text-white text-center py-2 px-4">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
+          <div className="text-sm">
+            Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+            <span className="font-semibold underline ml-2 cursor-pointer">
+              ShopNow
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm">English</span>
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
         </div>
       </div>
-      <header className="bg-white shadow p-4 flex justify-between items-center">
-        <div className="text-xl font-bold">
-          <img
-            src={logo}
-            alt="Shopping and mobile"
-            className="h-12 w-auto object-contain"
-          />
-        </div>
-        <nav className="space-x-6">
-          <a href="/home" className="text-gray-700 hover:text-black">
-            {trans("header.title")}
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            {trans("header.title_2")}
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            {trans("header.title_3")}
-          </a>
-          <a href="/sign_up" className="text-gray-700 hover:text-black">
-            {trans("header.title_4")}
-          </a>
-        </nav>
-        <div>
-          <input
-            type="search"
-            placeholder={trans("header.barre_de_recherche")}
-            className="border rounded px-2 py-1"
-          />
+
+      {/* Header principal */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold">Exclusive</h1>
+
+            <nav className="hidden md:flex space-x-8">
+              <a
+                href="/home"
+                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
+              >
+                Home
+              </a>
+              <a
+                href="/contact"
+                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
+              >
+                Contact
+              </a>
+              <a
+                href="/about"
+                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
+              >
+                About
+              </a>
+              <a
+                href="/signup"
+                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
+              >
+                Sign Up
+              </a>
+            </nav>
+
+            <div className="flex items-center space-x-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="What are you looking for?"
+                  className="bg-gray-100 px-4 py-2 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-black"
+                />
+                <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
+              </div>
+              <Heart className="h-6 w-6 text-gray-600 hover:text-red-500 cursor-pointer transition-colors" />
+              <ShoppingCart className="h-6 w-6 text-gray-600 hover:text-black cursor-pointer transition-colors" />
+              <User className="h-6 w-6 text-gray-600 hover:text-black cursor-pointer transition-colors" />
+            </div>
+          </div>
         </div>
       </header>
 
-      <main className="flex flex-1 bg-gray-50">
-        {/* Left image section */}
-        <div className="flex-1 flex items-center h-[500px] justify-center p-10">
-          <img
-            src={image}
-            alt="Shopping and mobile"
-            className="h-full object-contain"
-          />
+      {/* Breadcrumb */}
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex items-center space-x-2 text-sm text-gray-500">
+          <a href="/home" className="hover:text-black transition-colors">
+            Home
+          </a>
+          <span>/</span>
+          <span>404 Error</span>
         </div>
+      </div>
 
-        <div className="w-1/3 bg-white p-10 flex flex-col justify-center">
-          <h2 className="text-2xl font-semibold mb-6">
-            {trans("signup.title_2")}
-          </h2>
-          <p className="mb-4">{trans("signup.subtitle")}</p>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              placeholder={trans("signup.form.email")}
-              className="w-full border border-gray-300 rounded px-4 py-2"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <br />
-            <input
-              type="password"
-              placeholder={trans("signup.form.password")}
-              className="w-full border border-gray-300 rounded px-4 py-2"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <br />
-            <button
-              className="w-full bg-red-500 text-white rounded py-2 hover:bg-red-600 transition"
-              type="submit"
-            >
-              {trans("signup.buttons.incrire")}
-            </button>
-          </form>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <button className="mt-4 w-full border border-gray-300 rounded py-2 flex justify-center items-center space-x-2 hover:bg-gray-100 transition">
-            <img src="/google-icon.png" alt="Google" className="w-5 h-5" />
-            <span>{trans("signup.buttons.google_log")}</span>
-          </button>
-          <p className="mt-6 text-center text-gray-600">
-            {trans("signup.alreadyHaveAccount")}{" "}
-            <a href="/sign_up" className="text-red-500 hover:underline">
-              {trans("signup.signupLink")}
-            </a>
+      {/* Contenu principal 404 */}
+      <main className="flex-1 flex items-center justify-center py-20">
+        <div className="text-center">
+          <h1 className="text-8xl md:text-9xl font-bold text-black mb-6">
+            404 Not Found
+          </h1>
+          <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+            Your visited page not found. You may go home page.
           </p>
+          <button
+            onClick={handleBackToHome}
+            className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded transition-colors font-medium"
+          >
+            Back to home page
+          </button>
         </div>
       </main>
-      <footer className="bg-black text-white mt-20">
+
+      {/* Footer */}
+      <footer className="bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {/* Exclusive */}
@@ -167,9 +143,14 @@ const LoginPage = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-transparent border border-white px-3 py-2 rounded-l flex-1 text-sm focus:outline-none"
                 />
-                <button className="bg-white text-black px-3 py-2 rounded-r hover:bg-gray-200 transition-colors">
+                <button
+                  onClick={handleSubscribe}
+                  className="bg-white text-black px-3 py-2 rounded-r hover:bg-gray-200 transition-colors"
+                >
                   →
                 </button>
               </div>
@@ -287,6 +268,7 @@ const LoginPage = () => {
                 Save $3 with App New User Only
               </p>
 
+              {/* QR Code placeholder */}
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-20 h-20 bg-white rounded flex items-center justify-center">
                   <div className="w-16 h-16 bg-black rounded grid grid-cols-8 gap-0.5 p-1">
@@ -312,6 +294,7 @@ const LoginPage = () => {
                 </div>
               </div>
 
+              {/* Social Media */}
               <div className="flex space-x-4">
                 <Facebook className="w-5 h-5 hover:text-blue-400 cursor-pointer transition-colors" />
                 <Twitter className="w-5 h-5 hover:text-blue-300 cursor-pointer transition-colors" />
@@ -322,6 +305,7 @@ const LoginPage = () => {
           </div>
         </div>
 
+        {/* Copyright */}
         <div className="border-t border-gray-800">
           <div className="max-w-7xl mx-auto px-4 py-4 text-center text-sm text-gray-500">
             © Copyright Rimel 2022. All right reserved
@@ -330,6 +314,4 @@ const LoginPage = () => {
       </footer>
     </div>
   );
-};
-
-export default LoginPage;
+}
