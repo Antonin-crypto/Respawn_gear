@@ -34,7 +34,7 @@ router.post(
         description,
         description_en,
         price,
-        categorie,
+        categorieId,
         stock,
       } = req.body;
 
@@ -44,7 +44,7 @@ router.post(
         description,
         description_en,
         price,
-        categorie,
+        categorieId,
         stock,
         userId: req.user.id,
       });

@@ -46,6 +46,35 @@ router.get("/category", async (req, res) => {
   }
 });
 
+router.get("/categories", async (req, res) => {
+  try {
+    const categories = await Categorie.findAll();
+    res.json(categories);
+  } catch (error) {
+    console.error("Erreur GET /categories :", error);
+    res.status(500).json({ message: "Erreur serveur route categories" });
+  }
+});
+
+router.get("/category/:slug", async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const category = await Categorie.findOne({ where: { slug } });
+    if (!category)
+      return res.status(404).json({ message: "Catégorie introuvable" });
+
+    const produits = await Produit.findAll({
+      where: { categorieId: category.id },
+      include: [{ model: Image, as: "images" }],
+    });
+
+    res.json(produits);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const produit = await Produit.findByPk(req.params.id, {
