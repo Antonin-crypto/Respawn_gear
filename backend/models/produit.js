@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
+const Categorie = require("./categorie");
 
 const Produit = sequelize.define(
   "produit",
@@ -33,9 +34,14 @@ const Produit = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    categorie: {
-      type: DataTypes.STRING,
+    stock: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      defaultValue: 0,
+    },
+    categorieId: {
+      type: DataTypes.INTEGER,
+      references: { model: "categorie", key: "id" },
     },
   },
   {
