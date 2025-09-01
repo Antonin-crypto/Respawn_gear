@@ -9,6 +9,7 @@ const checkRole = require("../backend/middleware/checkRole");
 const authenticateToken = require("../backend/middleware/authenticateToken");
 const produitAdminRoutes = require("../backend/routes/produit_admin");
 const produitUserRoutes = require("../backend/routes/produit_user");
+require("../backend/models/initCategories/initCategories");
 app.use(express.json());
 
 app.use(cookieParser());
