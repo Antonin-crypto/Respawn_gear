@@ -13,18 +13,22 @@ const ProductForm = () => {
     description_en: "",
     price: "",
     categorie: "",
+    stock: "",
     images: "",
   });
 
   const [images, setImages] = useState([]);
   const isEdit = Boolean(id);
-
+  console.log("isEdit =", isEdit);
   useEffect(() => {
     if (isEdit) {
       axios
-        .get(`http://localhost:5000/produits/${id}`, { withCredentials: true })
+        .get(`http://localhost:5000/api/produits/${id}`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setFormData(res.data);
+          console.log("isEdit =", isEdit);
         })
         .catch((err) => {
           console.error("Erreur lors du chargement du produit :", err);
@@ -70,16 +74,24 @@ const ProductForm = () => {
       data.append("keepExistingImages", true);
     }
 
+    console.log("1");
+    console.log(
+      "🌐 URL de la requête :",
+      isEdit
+        ? `http://localhost:5000/api/admin/produits/${id}`
+        : "http://localhost:5000/api/admin/produits"
+    );
     const request = isEdit
-      ? axios.put(`http://localhost:5000/produits/${id}`, data, {
+      ? axios.put(`http://localhost:5000/api/admin/produits/${id}`, formData, {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
         })
-      : axios.post("http://localhost:5000/produits", data, {
+      : axios.post("http://localhost:5000/api/admin/produits", data, {
           withCredentials: true,
           headers: { "Content-Type": "multipart/form-data" },
         });
 
+    console.log("2", request);
     request
       .then(() => {
         navigate("/produit");
@@ -138,6 +150,14 @@ const ProductForm = () => {
         type="text"
         name="categorie"
         value={formData.categorie}
+        onChange={handleChange}
+        required
+      />
+      <label>stock </label>
+      <input
+        type="number"
+        name="stock"
+        value={formData.stock}
         onChange={handleChange}
         required
       />

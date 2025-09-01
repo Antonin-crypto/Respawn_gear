@@ -2,15 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-function ProductDetail({ id, onProductLoaded }) {
+function ProductDetail({ onProductLoaded }) {
   const [produit, setProduit] = useState(null);
+  const { id } = useParams();
+
+  console.log("🟣 ProductDetail - ID reçu en prop :", id);
 
   useEffect(() => {
     if (!id) return;
     axios
-      .get(`http://localhost:5000/produits/${id}`, { withCredentials: true })
+      .get(`http://localhost:5000/api/produits/${id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log("Réponse brute backend :", res.data);
+        console.log(" ProductDetail - Produit chargé :", res.data);
+        console.log(" useEffect déclenché avec ID :", id);
         setProduit(res.data);
         console.log("Produit chargé :", res.data);
         if (onProductLoaded) onProductLoaded(res.data);
