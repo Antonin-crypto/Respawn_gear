@@ -7,14 +7,9 @@ function Produit() {
   const [id, setSelectedId] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart } = useContext(CartContext);
-  console.log("selectedProduct dans Produit :", selectedProduct);
-  console.log("selectedId:", id);
-  console.log("selectedProduct:", selectedProduct);
-  console.log("Produit envoyé au panier :", selectedProduct);
-  console.log(" ID transmis à ProductDetail :", id);
+
   return (
     <div>
-      <h1>Respawn Gear 🛒</h1>
       <ProductList onSelect={setSelectedId} />
       {id && <ProductDetail id={id} onProductLoaded={setSelectedProduct} />}
       {selectedProduct && (

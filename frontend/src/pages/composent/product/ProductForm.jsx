@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 const ProductForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     name_en: "",
@@ -17,6 +17,18 @@ const ProductForm = () => {
     images: "",
   });
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/produits/categories", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.error("Erreur lors du chargement des catégories :", err);
+      });
+  }, []);
   const [images, setImages] = useState([]);
   const isEdit = Boolean(id);
   console.log("isEdit =", isEdit);
@@ -146,13 +158,19 @@ const ProductForm = () => {
       />
 
       <label>Catégorie :</label>
-      <input
-        type="text"
-        name="categorie"
-        value={formData.categorie}
+      <select
+        name="categorieId"
+        value={formData.categorieId}
         onChange={handleChange}
         required
-      />
+      >
+        <option value="">-- Choisir une catégorie --</option>
+        {categories.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.name} / {cat.name_en}
+          </option>
+        ))}
+      </select>
       <label>stock </label>
       <input
         type="number"

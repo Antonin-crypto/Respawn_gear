@@ -22,31 +22,35 @@ import { useCart } from "../pages/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 export default function CategoryPage() {
   const [produits, setProducts] = useState([]);
-  const [viewMode, setViewMode] = useState("grid"); // 'grid' or 'list'
+  const [viewMode, setViewMode] = useState("grid");
+  const { categorySlug } = useParams();
   const [sortBy, setSortBy] = useState("featured");
-  const { categoryName } = useParams();
+
   const { addToCart } = useCart();
   const navigate = useNavigate();
-  console.log("🛒 Produit reçu par addToCart :", produits);
+  console.log(" Produit reçu par addToCart :", produits);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/produits/category",
-          { params: { categorie: categoryName } }
+          `http://localhost:5000/api/produits/category/${categorySlug}`
         );
-        setProducts(response.data);
+        setProducts(
+          Array.isArray(response.data)
+            ? response.data
+            : response.data.produits || []
+        );
       } catch (error) {
         console.error("Erreur lors de la récupération des produits :", error);
       }
     };
 
     fetchProducts();
-  }, [categoryName]);
+  }, [categorySlug]);
 
   const categoryInfo = {
-    name: categoryName,
-    description: "Découvrez notre sélection de souris gaming haute performance",
+    name: categorySlug,
+    description: `Découvrez notre sélection de ${categorySlug}`,
     totalProducts: produits.length,
   };
 

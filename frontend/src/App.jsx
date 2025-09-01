@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path="*" element={<Page404 />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/category/:categoryName" element={<CategoryPage />} />
+          <Route path="/category/:categorySlug" element={<CategoryPage />} />
           <Route path="/sign_up" element={<SignUp />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
