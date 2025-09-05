@@ -26,6 +26,32 @@
     "title_2": "Contact",
     "title_3": "About",
     "title_4": "Sign up",
-    "barre_de_recherche": "What are you looking for ? "
+    "barre_de_recherche": "What are you looking for ? ",
+    "compte": "My account"
+  },
+  "dropdownmenu": {
+    "compte": "My account",
+    "icon_admin": "Page d'admin Product",
+    "icon_user": "Manage My Account",
+    "icon_cart": "My Order",
+    "icon_cancellation": "My Cancellatons",
+    "icon_reviews": "My Reviews",
+    "icon_logout": "Logout"
+  },
+  "categories": {
+    "consoles": "Consoles",
+    "accessoires": "Accessories",
+    "jeux_video": "Video Games",
+    "pc_gaming": "Gaming PC",
+    "composants": "Components",
+    "ecrans": "Monitors",
+    "claviers": "Keyboards",
+    "casques_audio_gaming": "Headsets & Gaming Audio",
+    "souris": "Mice"
+  },
+  "Produits": {
+    "avant": "Featured products",
+    "voir_plus": "View More Products",
+    "voir_moins": "View Less"
   }
 }

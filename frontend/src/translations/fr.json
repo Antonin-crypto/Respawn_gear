@@ -26,6 +26,32 @@
     "title_2": "Contacter",
     "title_3": "À propos",
     "title_4": "Inscription",
-    "barre_de_recherche": "Que recherchez-vous ? "
+    "barre_de_recherche": "Que recherchez-vous ? ",
+    "compte": "Mon Compte"
+  },
+  "dropdownmenu": {
+    "compte": "Mon Compte",
+    "icon_admin": "Page d'admin du produit",
+    "icon_user": "Gérer mon compte",
+    "icon_cart": "Mon Panier",
+    "icon_cancellation": "Mes Annulations",
+    "icon_reviews": "Mes Avis",
+    "icon_logout": "Déconnexion"
+  },
+  "categories": {
+    "consoles": "Consoles",
+    "accessoires": "Accessoires",
+    "jeux_video": "Jeux Vidéo",
+    "pc_gaming": "PC Gaming",
+    "composants": "Composants",
+    "ecrans": "Écrans",
+    "claviers": "Claviers",
+    "casques_audio_gaming": "Casques & Audio Gaming",
+    "souris": "Souris"
+  },
+  "Produits": {
+    "avant": "Produits mis en avant",
+    "voir_plus": "Voir plus de produits",
+    "voir_moins": "Voir moins"
   }
 }
