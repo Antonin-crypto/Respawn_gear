@@ -19,7 +19,10 @@ router.get("/home", async (req, res) => {
 router.get("/home_page", async (req, res) => {
   try {
     const produits = await Produit.findAll({
-      include: [{ model: Image, as: "images", limit: 1 }],
+      include: [
+        { model: Image, as: "images", limit: 1 },
+        { model: Categorie, as: "categorie" },
+      ],
       limit: 8,
       order: [["createdAt", "DESC"]],
     });
