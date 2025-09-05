@@ -15,7 +15,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Exclusive */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Exclusive</h3>
+            <h3 className="text-xl font-bold mb-4">Respawn Gear</h3>
             <h4 className="font-semibold mb-4">Subscribe</h4>
             <p className="text-sm mb-4">Get 10% off your first order</p>
             <div className="flex">

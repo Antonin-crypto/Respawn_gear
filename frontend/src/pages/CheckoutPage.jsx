@@ -15,7 +15,8 @@ import {
   Truck,
 } from "lucide-react";
 import logo from "../pages/composent/images/Logo de Respawn Gear.png";
-
+import HeaderPage from "./composent/Header_page";
+import { useCart } from "./contexts/CartContext";
 export default function CheckoutPage() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -30,25 +31,11 @@ export default function CheckoutPage() {
 
   const [paymentMethod, setPaymentMethod] = useState("bank");
   const [couponCode, setCouponCode] = useState("");
+  const { cart } = useCart();
 
-  const cartItems = [
-    {
-      id: 1,
-      name: "LCD Monitor",
-      price: 650,
-      image:
-        "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=80&h=80&fit=crop",
-    },
-    {
-      id: 2,
-      name: "Hi Gamepad",
-      price: 1100,
-      image:
-        "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=80&h=80&fit=crop",
-    },
-  ];
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = Array.isArray(cart)
+    ? cart.reduce((sum, item) => sum + item.price, 0)
+    : 0;
   const shipping = 0;
   const total = subtotal + shipping;
 
@@ -62,7 +49,7 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Commande passée:", { formData, paymentMethod, cartItems });
+    console.log("Commande passée:", { formData, paymentMethod, cart });
     alert("Commande passée avec succès !");
   };
 
@@ -74,86 +61,7 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header avec bannière promotionnelle */}
-      <div className="bg-black text-white text-center py-2 px-4">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="text-sm">
-            Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-            <span className="font-semibold underline ml-2 cursor-pointer">
-              ShopNow
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-sm">English</span>
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Header principal */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <img
-              src={logo}
-              alt="Shopping and mobile"
-              className="h-12 w-auto object-contain"
-            />
-
-            <nav className="hidden md:flex space-x-8">
-              <a
-                href="/"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                Home
-              </a>
-              <a
-                href="/contact"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                Contact
-              </a>
-              <a
-                href="/about"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                About
-              </a>
-              <a
-                href="/signup"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                Sign Up
-              </a>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="What are you looking for?"
-                  className="bg-gray-100 px-4 py-2 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-black"
-                />
-                <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
-              </div>
-              <Heart className="h-6 w-6 text-gray-600 hover:text-red-500 cursor-pointer transition-colors" />
-              <div className="relative">
-                <ShoppingCart className="h-6 w-6 text-gray-600 hover:text-black cursor-pointer transition-colors" />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {cartItems.length}
-                </span>
-              </div>
-              <User className="h-6 w-6 text-gray-600 hover:text-black cursor-pointer transition-colors" />
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <HeaderPage></HeaderPage>
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center space-x-2 text-sm text-gray-500">
@@ -301,22 +209,29 @@ export default function CheckoutPage() {
           <div className="space-y-6">
             {/* Articles du panier */}
             <div className="space-y-4">
-              {cartItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-12 h-12 object-cover rounded"
-                    />
-                    <span className="font-medium">{item.name}</span>
-                  </div>
-                  <span className="font-semibold">${item.price}</span>
-                </div>
-              ))}
+              {Array.isArray(cart) &&
+                cart.map((item) => {
+                  console.log("URL image :", item.images);
+                  return (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <img
+                          src={
+                            item.images[0]?.url ||
+                            "https://via.placeholder.com/80"
+                          }
+                          alt={item.name}
+                          className="w-12 h-12 border-2 border-red-500"
+                        />
+                        <span className="font-medium">{item.name}</span>
+                      </div>
+                      <span className="font-semibold">${item.price}</span>
+                    </div>
+                  );
+                })}
             </div>
 
             <div className="border-t pt-4 space-y-3">

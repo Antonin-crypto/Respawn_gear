@@ -1,9 +1,5 @@
 import { useState } from "react";
 import {
-  Heart,
-  ShoppingCart,
-  User,
-  Search,
   MapPin,
   Phone,
   Mail,
@@ -12,6 +8,7 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import HeaderPage from "./composent/Header_page";
 
 export default function Page404() {
   const [email, setEmail] = useState("");
@@ -30,76 +27,7 @@ export default function Page404() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header avec bannière promotionnelle */}
-      <div className="bg-black text-white text-center py-2 px-4">
-        <div className="flex items-center justify-between max-w-7xl mx-auto">
-          <div className="text-sm">
-            Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-            <span className="font-semibold underline ml-2 cursor-pointer">
-              ShopNow
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="text-sm">English</span>
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Header principal */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Exclusive</h1>
-
-            <nav className="hidden md:flex space-x-8">
-              <a
-                href="/home"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                Home
-              </a>
-              <a
-                href="/contact"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                Contact
-              </a>
-              <a
-                href="/about"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                About
-              </a>
-              <a
-                href="/signup"
-                className="text-gray-700 hover:text-black border-b-2 border-transparent hover:border-black transition-all"
-              >
-                Sign Up
-              </a>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="What are you looking for?"
-                  className="bg-gray-100 px-4 py-2 pr-10 rounded focus:outline-none focus:ring-2 focus:ring-black"
-                />
-                <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-400" />
-              </div>
-              <Heart className="h-6 w-6 text-gray-600 hover:text-red-500 cursor-pointer transition-colors" />
-              <ShoppingCart className="h-6 w-6 text-gray-600 hover:text-black cursor-pointer transition-colors" />
-              <User className="h-6 w-6 text-gray-600 hover:text-black cursor-pointer transition-colors" />
-            </div>
-          </div>
-        </div>
-      </header>
+      <HeaderPage></HeaderPage>
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 py-4">

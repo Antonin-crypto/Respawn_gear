@@ -12,6 +12,7 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import HeaderPage from "../Header_page";
 
 const ProductId = () => {
   const { id } = useParams();
@@ -51,8 +52,9 @@ const ProductId = () => {
   if (!product) return <p>Produit introuvable.</p>;
 
   return (
-    <div className="p-10">
+    <div className="min-h-screen bg-gray-50">
       {/* Fil d’Ariane */}
+      <HeaderPage></HeaderPage>
       <div className="text-sm text-gray-500 mb-4">
         Home / Gaming / <span className="text-black">{product.name}</span>
       </div>
@@ -165,7 +167,7 @@ const ProductId = () => {
               )}
               <p className="font-medium">{product.name}</p>
               <p className="font-medium">{product.description}</p>
-              <p className="font-medium">{product.categorie}</p>
+              <p className="font-medium">{product.categorie.name}</p>
               <p className="text-red-500 font-bold">
                 ${product.price}{" "}
                 <span className="line-through text-gray-400">

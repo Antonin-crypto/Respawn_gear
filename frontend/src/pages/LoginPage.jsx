@@ -14,18 +14,13 @@ import {
   Instagram,
   Linkedin,
 } from "lucide-react";
+import HeaderPage from "./composent/Header_page";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [lang, setLang] = useState("fr");
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
-  const handleLangChange = (e) => {
-    const newLang = e.target.value;
-    setLang(newLang);
-    setLanguage(newLang);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,54 +47,8 @@ const LoginPage = () => {
 
   return (
     <div>
-      <div className="w-full bg-black text-white px-4 py-2 flex items-center justify-between">
-        {/* Texte à gauche */}
-        <h1 className="absolute left-1/2 transform -translate-x-1/2 text-lg font-bold">
-          {trans("header.big_title")} ShopNow
-        </h1>
-
-        {/* Filtre / bouton à droite */}
-        <div className="ml-auto">
-          <select
-            value={lang}
-            onChange={handleLangChange}
-            className="bg-gray-800 text-white border border-gray-700 rounded px-2 py-1"
-          >
-            <option value="fr">🇫🇷 Français</option>
-            <option value="en">🇬🇧 English</option>
-          </select>
-        </div>
-      </div>
-      <header className="bg-white shadow p-4 flex justify-between items-center">
-        <div className="text-xl font-bold">
-          <img
-            src={logo}
-            alt="Shopping and mobile"
-            className="h-12 w-auto object-contain"
-          />
-        </div>
-        <nav className="space-x-6">
-          <a href="/home" className="text-gray-700 hover:text-black">
-            {trans("header.title")}
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            {trans("header.title_2")}
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            {trans("header.title_3")}
-          </a>
-          <a href="/sign_up" className="text-gray-700 hover:text-black">
-            {trans("header.title_4")}
-          </a>
-        </nav>
-        <div>
-          <input
-            type="search"
-            placeholder={trans("header.barre_de_recherche")}
-            className="border rounded px-2 py-1"
-          />
-        </div>
-      </header>
+      {/* Texte à gauche */}
+      <HeaderPage></HeaderPage>
 
       <main className="flex flex-1 bg-gray-50">
         {/* Left image section */}

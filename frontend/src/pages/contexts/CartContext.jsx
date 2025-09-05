@@ -3,21 +3,18 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-
-  useEffect(() => {
+  const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  }, []);
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
   useEffect(() => {
+    console.log(" Cart mis à jour :", cart);
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   const addToCart = (product) => {
-    console.log("🛒 Produit ajouté au panier :", product);
+    console.log(" Produit ajouté au panier :", product);
     setCart((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
       if (existing) {

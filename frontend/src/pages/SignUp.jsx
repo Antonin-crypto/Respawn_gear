@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { trans, setLanguage } from "../translations";
 import Footer from "./composent/Footer";
+import HeaderPage from "./composent/Header_page";
 const SignUp = () => {
   const [name, setName] = useState("");
   const [last_name, setLast_Name] = useState("");
@@ -39,34 +40,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <select value={lang} onChange={handleLangChange}>
-        <option value="fr">🇫🇷 Français</option>
-        <option value="en">🇬🇧 English</option>
-      </select>
-      <header className="bg-white shadow p-4 flex justify-between items-center">
-        <div className="text-xl font-bold">Logo</div>
-        <nav className="space-x-6">
-          <a href="/home" className="text-gray-700 hover:text-black">
-            Home
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            Contact
-          </a>
-          <a href="#" className="text-gray-700 hover:text-black">
-            About
-          </a>
-          <a href="/sign_up" className="text-gray-700 hover:text-black">
-            Sign up
-          </a>
-        </nav>
-        <div>
-          <input
-            type="search"
-            placeholder="What are you looking for?"
-            className="border rounded px-2 py-1"
-          />
-        </div>
-      </header>
+      <HeaderPage></HeaderPage>
 
       <main className="flex flex-1 bg-gray-50">
         {/* Left image section */}

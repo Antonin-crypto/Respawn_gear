@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router-dom";
-
+import { trans } from "../../../translations";
 export default function CategoryMenu() {
   const navigate = useNavigate();
 
   const categories = [
-    { name: "Consoles", slug: "consoles" },
-    { name: "Accessoires", slug: "accessoires" },
-    { name: "Jeux Vidéo", slug: "jeux-video" },
-    { name: "PC Gaming", slug: "pc-gaming" },
-    { name: "Composants", slug: "composants" },
-    { name: "Écrans", slug: "ecrans" },
-    { name: "Claviers", slug: "claviers" },
-    { name: "Casques & Audio Gaming", slug: "casques-audio" },
-    { name: "Souris", slug: "souris" },
+    "consoles",
+    "accessoires",
+    "jeux_video",
+    "pc_gaming",
+    "composants",
+    "ecrans",
+    "claviers",
+    "casques_audio_gaming",
+    "souris",
   ];
 
   const handleCategoryClick = (slug) => {
@@ -21,13 +21,13 @@ export default function CategoryMenu() {
 
   return (
     <ul className="space-y-3 text-gray-700">
-      {categories.map((category, index) => (
+      {categories.map((slug, index) => (
         <li key={index}>
           <button
-            onClick={() => handleCategoryClick(category.slug)}
+            onClick={() => handleCategoryClick(slug)}
             className="hover:text-blue-600 transition-colors cursor-pointer"
           >
-            {category.name}
+            {trans(`categories.${slug}`)}
           </button>
         </li>
       ))}

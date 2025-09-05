@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Search, Plus, Edit3, Trash2, ShoppingBag, Filter } from "lucide-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import ProductItem from "./ProductItem";
 
 const ProductList = ({ onSelect = () => {} }) => {
   const [produits, setProduits] = useState([]);
@@ -41,13 +42,16 @@ const ProductList = ({ onSelect = () => {} }) => {
       });
   };
 
-  // Filtrage côté frontend
-  const produitsFiltres = produits.filter(
-    (produit) =>
-      produit.name.toLowerCase().includes(filtre.toLowerCase()) ||
-      produit.categorie.toLowerCase().includes(filtre.toLowerCase())
-  );
+  const produitsFiltres = produits.filter((produit) => {
+    const name = produit.name ?? "";
+    const categorie = String(produit.categorieId ?? "");
+    const filtreLower = filtre.toLowerCase();
 
+    return (
+      name.toLowerCase().includes(filtreLower) ||
+      categorie.toLowerCase().includes(filtreLower)
+    );
+  });
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -122,7 +126,7 @@ const ProductList = ({ onSelect = () => {} }) => {
               <div>
                 <p className="text-sm font-medium text-gray-600">Catégories</p>
                 <p className="text-3xl font-bold text-gray-900">
-                  {new Set(produits.map((p) => p.categorie)).size}
+                  {new Set(produits.map((p) => p.categorieId)).size}
                 </p>
               </div>
               <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -148,13 +152,12 @@ const ProductList = ({ onSelect = () => {} }) => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {produitsFiltres.map((produit) => (
-              <div
+              <ProductItem
                 key={produit.id}
+                produit={produit}
+                onDelete={handleDelete}
                 className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden cursor-pointer"
-                onClick={() => {
-                  console.log("✅ Produit cliqué :", produit.id);
-                  onSelect(produit.id);
-                }}
+                onEdit={(id) => navigate(`/produits/modifier/${id}`)}
               >
                 {/* Product Image */}
                 <div className="aspect-w-1 aspect-h-1 h-48 bg-gray-100">
@@ -215,7 +218,7 @@ const ProductList = ({ onSelect = () => {} }) => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </ProductItem>
             ))}
           </div>
         )}

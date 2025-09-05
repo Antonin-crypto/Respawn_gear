@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "./contexts/AuthContext";
+import HeaderPage from "./composent/Header_page";
 
 const Profile = () => {
   const { user, deleteAccount } = useContext(AuthContext);

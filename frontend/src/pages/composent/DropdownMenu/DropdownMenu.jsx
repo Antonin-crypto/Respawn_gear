@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   User,
@@ -11,9 +11,11 @@ import {
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useLogout } from "../logout/LogoutButton";
+import { trans } from "../../../translations";
 
 export default function DropdownMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [_, setLang] = useState(0);
   const { user } = useAuth();
   const navigate = useNavigate();
   const logout = useLogout();
@@ -29,37 +31,55 @@ export default function DropdownMenu() {
   const handleClickpanier = () => {
     navigate("/panier");
   };
+
+  const handleClickcancellations = () => {
+    navigate("/cancellations");
+  };
+
+  const handleClickrevieuw = () => {
+    navigate("/revieuw");
+  };
+
+  useEffect(() => {
+    const handleLangUpdate = () => {
+      setLang((prev) => prev + 1);
+    };
+    window.addEventListener("languagechange", handleLangUpdate);
+    return () => {
+      window.removeEventListener("languagechange", handleLangUpdate);
+    };
+  }, []);
   const menuItems = [
     {
       icon: <User size={18} />,
-      label: "Manage My Account",
+      label: trans("dropdownmenu.icon_user"),
       action: handleClickprofil,
     },
     {
       icon: <Package size={18} />,
-      label: "My Order",
+      label: trans("dropdownmenu.icon_cart"),
       action: handleClickpanier,
     },
     {
       icon: <XCircle size={18} />,
-      label: "My Cancellations",
-      action: () => console.log("My Cancellations clicked"),
+      label: trans("dropdownmenu.icon_cancellation"),
+      action: handleClickcancellations,
     },
     {
       icon: <Star size={18} />,
-      label: "My Reviews",
-      action: () => console.log("My Reviews clicked"),
+      label: trans("dropdownmenu.icon_reviews"),
+      action: handleClickrevieuw,
     },
     {
       icon: <LogOut size={18} />,
-      label: "Logout",
+      label: trans("dropdownmenu.icon_logout"),
       action: () => handleClick(),
     },
   ];
   if (user?.role === "admin") {
     menuItems.unshift({
       icon: <Settings size={18} />,
-      label: "page admin produit",
+      label: trans("dropdownmenu.icon_admin"),
       action: () => navigate("/produit"),
     });
   }
@@ -80,7 +100,6 @@ export default function DropdownMenu() {
           }`}
         />
       </button>
-
       {/* Menu déroulant */}
       {isOpen && (
         <>
@@ -89,7 +108,6 @@ export default function DropdownMenu() {
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-
           <div className="absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-sm border border-gray-200/50 rounded-xl shadow-xl z-50 overflow-hidden">
             {/* En-tête du menu */}
             <div className="px-4 py-3 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200/50">
@@ -98,14 +116,15 @@ export default function DropdownMenu() {
                   <User size={20} className="text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-800">Mon Compte</p>
+                  <p className="font-semibold text-gray-800">
+                    {trans("header.compte")}
+                  </p>
                   <p className="text-xs text-gray-500">
                     {user ? user.name : "Chargement..."}
                   </p>
                 </div>
               </div>
             </div>
-
             {/* Liste des options */}
             <div className="py-2">
               {menuItems.map((item, index) => (

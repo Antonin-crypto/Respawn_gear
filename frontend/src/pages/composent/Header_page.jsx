@@ -7,16 +7,18 @@ import logo from "../../pages/composent/images/Logo de Respawn Gear.png";
 import DropdownMenu from "../composent/DropdownMenu/DropdownMenu";
 import CategoryMenu from "../composent/DropdownMenu/CategoryMenu";
 
-function Header() {
+function HeaderPage() {
   const [lang, setLang] = useState("fr");
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate("/panier");
   };
+
   const handleClickwishlist = () => {
     navigate("/wishlist");
   };
+
   const handleLangChange = (e) => {
     const newLang = e.target.value;
     setLang(newLang);
@@ -95,30 +97,7 @@ function Header() {
           </div>
         </div>
       </header>
-      {/* 🔝 Main Content */}
-      <main className="max-w-7xl mx-auto px-6 grid grid-cols-12 gap-6 mt-6">
-        {/* Sidebar */}
-        <aside className="col-span-3 hidden md:block border-r pr-4">
-          <ul className="space-y-3 text-gray-700">
-            <CategoryMenu></CategoryMenu>
-          </ul>
-        </aside>
-        <section className="col-span-12 md:col-span-9 bg-black text-white rounded-lg flex items-center justify-between px-6 py-10">
-          <div>
-            <h2 className="text-xl font-light">iPhone 14 Series</h2>
-            <p className="text-3xl font-bold my-4">Up to 10% off Voucher</p>
-            <button className="bg-white text-black px-4 py-2 rounded-md">
-              Shop Now →
-            </button>
-          </div>
-          <img
-            src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-purple-select-202209?wid=940&hei=1112&fmt=png-alpha&.v=1661027786438"
-            alt="iPhone"
-            className="w-40 md:w-60"
-          />
-        </section>
-      </main>
     </div>
   );
 }
-export default Header;
+export default HeaderPage;

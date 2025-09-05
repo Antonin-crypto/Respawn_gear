@@ -1,38 +1,28 @@
 import React from "react";
 import "../input.css";
-import { trans, setLanguage } from "../translations";
+import { trans } from "../translations";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../pages/composent/images/Logo de Respawn Gear.png";
-import DropdownMenu from "./composent/DropdownMenu/DropdownMenu";
-import CategoryMenu from "./composent/DropdownMenu/CategoryMenu";
+
 import Header from "./composent/Header";
 import Footer from "../pages/composent/Footer";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-} from "lucide-react";
+
 export default function Home() {
   const [produit, setProduits] = useState([]);
-  const [lang, setLang] = useState("fr");
+  const [_, setLang] = useState("fr");
   const [visibleCount, setVisibleCount] = useState(4);
-  const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/panier");
-  };
-
-  const handleLangChange = (e) => {
-    const newLang = e.target.value;
-    setLang(newLang);
-    setLanguage(newLang);
-  };
+  useEffect(() => {
+    const handleLangUpdate = () => {
+      setLang((prev) => prev + 1);
+    };
+    window.addEventListener("languagechange", handleLangUpdate);
+    return () => {
+      window.removeEventListener("languagechange", handleLangUpdate);
+    };
+  }, []);
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 4);
   };
@@ -54,7 +44,7 @@ export default function Home() {
       <Header></Header>
       {/* Flash Sales */}
       <section className="max-w-7xl mx-auto px-6 mt-12">
-        <h3 className="text-xl font-bold mb-4">produits mis en avant</h3>
+        <h3 className="text-xl font-bold mb-4">{trans("Produits.avant")}</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {produit.slice(0, visibleCount).map((product) => (
             <Link
@@ -73,7 +63,7 @@ export default function Home() {
               )}
               <p className="font-medium">{product.name}</p>
               <p className="font-medium">{product.description}</p>
-              <p className="font-medium">{product.categorie}</p>
+              <p className="font-medium">{product.categorie?.name}</p>
               <p className="text-red-500 font-bold">
                 ${product.price}{" "}
                 <span className="line-through text-gray-400">
@@ -92,7 +82,9 @@ export default function Home() {
             }
             className="bg-red-500 text-white px-6 py-2 rounded-md font-medium"
           >
-            {visibleCount < produit.length ? "View More Products" : "View Less"}
+            {visibleCount < produit.length
+              ? trans("Produits.voir_plus")
+              : trans("Produits.voir_moins")}
           </button>
         </div>
       </section>

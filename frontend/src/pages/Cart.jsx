@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "./contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import logo from "../pages/composent/images/Logo de Respawn Gear.png";
+
+import HeaderPage from "./composent/Header_page";
 const CartPage = () => {
   const navigate = useNavigate();
   const { cart, removeFromCart, updateQuantity, clearCart } =
@@ -18,59 +19,7 @@ const CartPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-purple-900 text-white py-2 px-4 text-sm text-center">
-        Summer Sale for All Swim Suits And Free Express Delivery – OFF 50%!
-      </div>
-
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 py-4">
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
-          <img
-            src={logo}
-            alt="Shopping and mobile"
-            className="h-12 w-auto object-contain"
-          />
-          <div className="flex space-x-8 text-sm">
-            <a href="/home" className="text-gray-600 hover:text-black">
-              Home
-            </a>
-            <a href="/" className="text-gray-600 hover:text-black">
-              Products
-            </a>
-            <a href="/about" className="text-gray-600 hover:text-black">
-              About
-            </a>
-            <a href="/sign_up" className="text-gray-600 hover:text-black">
-              Sign Up
-            </a>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <input
-                type="search"
-                placeholder="What are you looking for?"
-                className="pl-4 pr-10 py-2 border border-gray-300 rounded-md text-sm w-64"
-              />
-              <div className="absolute right-3 top-2.5">
-                <svg
-                  className="w-4 h-4 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
+      <HeaderPage></HeaderPage>
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
