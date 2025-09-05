@@ -4,7 +4,11 @@ const registerValidationRules = [
   body("name").trim().notEmpty().withMessage("Le premon est requis"),
   body("last_name").trim().notEmpty().withMessage("le nom est requis"),
   body("email").trim().isEmail().withMessage("Email invalide"),
-  body("phone").trim().notEmpty().withMessage("votre numero de téléphone"),
+  body("phone")
+    .optional({ checkFalsy: true })
+    .trim()
+    .notEmpty()
+    .withMessage("votre numero de téléphone"),
   body("password")
     .trim()
     .isLength({ min: 6 })
