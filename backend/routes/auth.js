@@ -8,11 +8,12 @@ const { registerValidationRules } = require("../middleware/validator");
 
 // S'incrire
 router.post("/register", registerValidationRules, async (req, res) => {
-  const erros = validationResult(req);
-  if (!erros.isEmpty()) {
-    return res.status(400).json({ erros: erros.array() });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ erros: errors.array() });
   }
-  const { name, last_name, email, password, phone, role } = req.body;
+  const { name, last_name, email, password, role } = req.body;
+  const phone = req.body.phone || null;
 
   try {
     const existingUser = await User.findOne({ where: { email } });
