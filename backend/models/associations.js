@@ -16,7 +16,7 @@ User.hasMany(Adress, { foreignKey: "UserId" });
 Adress.belongsTo(User, { foreignKey: "UserId" });
 
 // User <-> Panier
-User.hasMany(Panier, { foreignKey: "UserId" });
+User.hasOne(Panier, { foreignKey: "UserId" });
 Panier.belongsTo(User, { foreignKey: "UserId" });
 
 // User <-> Avis
