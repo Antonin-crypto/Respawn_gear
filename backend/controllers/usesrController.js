@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { validationResult } = require("express-validator");
 
+// Connexion d’un utilisateur
 exports.loginUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -12,22 +13,26 @@ exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Vérifie si l’email existe
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return res.status(401).json({ error: "Email incorrect." });
     }
 
+    // Vérifie le mot de passe avec bcrypt
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ error: "Mot de passe incorrect." });
     }
 
+    // Génère un token JWT valable 1h
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
+    // Stocke le token dans un cookie sécurisé
     res
       .cookie("token", token, {
         httpOnly: true,
@@ -41,6 +46,7 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+//  Déconnexion
 exports.logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -50,6 +56,7 @@ exports.logoutUser = (req, res) => {
   res.status(200).json({ message: "Déconnexion réussie" });
 };
 
+// Récupérer le profil de l’utilisateur connecté
 exports.getProfile = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id, {
@@ -62,6 +69,7 @@ exports.getProfile = async (req, res) => {
   }
 };
 
+//  Mettre à jour le profil de l’utilisateur
 exports.updateProfile = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
@@ -71,8 +79,7 @@ exports.updateProfile = async (req, res) => {
 
   try {
     const user = await User.findByPk(req.user.id);
-    if (!user)
-      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
 
     if (name) user.name = name;
     if (last_name) user.last_name = last_name;
@@ -88,6 +95,7 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
+// Supprimer le compte utilisateur
 exports.deleteProfile = async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id);

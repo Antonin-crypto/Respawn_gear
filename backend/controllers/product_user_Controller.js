@@ -1,11 +1,15 @@
-const { Produit, Categorie } = require("../models/associations");
+const { Produit, Categorie, Brand } = require("../models/associations");
 const Image = require("../models/Image");
 
 // Récupérer tous les produits avec 1 image
 exports.getAllProducts = async (req, res) => {
   try {
     const produits = await Produit.findAll({
-      include: [{ model: Image, as: "images", limit: 1 }],
+      include: [
+        { model: Image, as: "images", limit: 1 },
+        { model: Categorie, as: "categorie", attributes: ["id", "name"] },
+        { model: Brand, as: "brand", attributes: ["id", "name", "slug"] },
+      ],
     });
     res.json(produits);
   } catch (error) {
@@ -20,7 +24,7 @@ exports.getHomePageProducts = async (req, res) => {
     const produits = await Produit.findAll({
       include: [
         { model: Image, as: "images", limit: 1 },
-        { model: Categorie, as: "categorie" },
+        { model: Categorie, as: "categorie", attributes: ["id", "name"] },
       ],
       limit: 8,
       order: [["createdAt", "DESC"]],
@@ -28,6 +32,17 @@ exports.getHomePageProducts = async (req, res) => {
     res.json(produits);
   } catch (error) {
     console.error(" Erreur getHomePageProducts :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
+// Récupérer toutes les marques disponibles
+exports.BrandProduct = async (req, res) => {
+  try {
+    const brands = await Brand.findAll();
+    res.json(brands);
+  } catch (err) {
+    console.error("Erreur brands :", err);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
@@ -47,7 +62,7 @@ exports.getProductsByCategoryQuery = async (req, res) => {
   }
 };
 
-// Liste des catégories
+// Récupérer toutes les catégories
 exports.getCategories = async (req, res) => {
   try {
     const categories = await Categorie.findAll();
@@ -78,7 +93,7 @@ exports.getProductsBySlug = async (req, res) => {
   }
 };
 
-// Détails d’un produit
+// Récupérer les détails d’un produit par son ID
 exports.getProductById = async (req, res) => {
   try {
     const produit = await Produit.findByPk(req.params.id, {

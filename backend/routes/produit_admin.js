@@ -13,10 +13,10 @@ const {
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// CREATE produit
+// Créer un produit
 router.post("/", authenticateToken, upload.array("images", 5), createProduit);
 
-// UPDATE produit
+// Mettre à jour un produit
 router.put(
   "/:id",
   authenticateToken,
@@ -25,7 +25,7 @@ router.put(
   updateProduit
 );
 
-// DELETE produit
+// Supprimer un produit
 router.delete("/:id", authenticateToken, checkOwnership, deleteProduit);
 
 module.exports = router;

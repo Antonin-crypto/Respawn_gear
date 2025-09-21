@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 // express_validator
 const { body, validationResult } = require("express-validator");
-const { registerValidationRules } = require("../middleware/validator");
+const { registerValidationRules } = require("../validator/validator");
 const { registerUser } = require("../controllers/authController");
 
 // S'incrire

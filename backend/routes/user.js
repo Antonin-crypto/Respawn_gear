@@ -4,7 +4,7 @@ const authenticateToken = require("../middleware/authenticateToken");
 const {
   loginValidationRules,
   updateValidationRules,
-} = require("../middleware/validator");
+} = require("../validator/validator");
 
 const {
   loginUser,

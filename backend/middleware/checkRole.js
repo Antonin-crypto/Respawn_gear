@@ -1,3 +1,5 @@
+
+// checkRole est pour verifier si il à le bon role
 module.exports = function checkRole(roles) {
   return (req, res, next) => {
     console.log("Utilisateur authentifié :", req.user);

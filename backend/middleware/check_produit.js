@@ -1,5 +1,6 @@
 const Produit = require("../models/produit");
 
+// checkOwnership est pour vérifier si l'utilisateur est admin et propriétaire d'une ressource
 const checkOwnership = async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {
