@@ -6,12 +6,12 @@ export default function CategoryMenu() {
   const categories = [
     "consoles",
     "accessoires",
-    "jeux_video",
-    "pc_gaming",
+    "jeux-video",
+    "pc-gaming",
     "composants",
     "ecrans",
     "claviers",
-    "casques_audio_gaming",
+    "casques-audio-gaming",
     "souris",
   ];
 
