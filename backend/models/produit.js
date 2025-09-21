@@ -39,6 +39,10 @@ const Produit = sequelize.define(
       allowNull: false,
       defaultValue: 0,
     },
+    brandId: {
+      type: DataTypes.INTEGER,
+      references: { model: "brands", key: "id" },
+    },
     categorieId: {
       type: DataTypes.INTEGER,
       references: { model: "categorie", key: "id" },
