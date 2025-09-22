@@ -1,30 +1,53 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContext";
-import HeaderPage from "./composent/Header_page";
-
+import axios from "axios";
 const Profile = () => {
-  const { user, deleteAccount } = useContext(AuthContext);
+  const { user, setUser, deleteAccount } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
-    name: user?.name || "",
-    last_name: user?.last_name || "",
-    email: user?.email || "",
-    address: user?.address || "",
-    phone: user?.phone || "",
+    name: "",
+    last_name: "",
+    email: "",
+    phone: "",
     currentPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
 
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || "",
+        last_name: user.last_name || "",
+        email: user.email || "",
+        phone: user.phone || "",
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    }
+  }, [user]);
   if (!user) return <p>Chargement du Profile...</p>;
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/api/users/profile/modification",
+        formData,
+        { withCredentials: true }
+      );
+      console.log("Réponse backend :", res.data);
+      alert("Profil mis à jour !");
+      setUser(res.data.user);
+    } catch (err) {
+      console.error("Erreur axios :", err.response?.data || err.message);
+      alert(err.response?.data?.error || "Erreur lors de la mise à jour");
+      alert("Erreur lors de la mise à jour");
+    }
+  };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Formulaire soumis :", formData);
   };
 
   return (
@@ -36,17 +59,7 @@ const Profile = () => {
           <li className="text-red-500 font-medium cursor-pointer">
             My Profile
           </li>
-          <li className="text-gray-700 cursor-pointer">Address Book</li>
-          <li className="text-gray-700 cursor-pointer">My Payment Options</li>
         </ul>
-
-        <h3 className="text-lg font-semibold mt-6 mb-4">My Orders</h3>
-        <ul className="space-y-3">
-          <li className="text-gray-700 cursor-pointer">My Returns</li>
-          <li className="text-gray-700 cursor-pointer">My Cancellations</li>
-        </ul>
-
-        <h3 className="text-lg font-semibold mt-6 mb-4">My Wishlist</h3>
       </aside>
 
       {/* Main Content */}
@@ -94,16 +107,6 @@ const Profile = () => {
             />
           </div>
 
-          <div className="mt-4">
-            <label className="block mb-2 text-sm font-medium">Address</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2"
-            />
-          </div>
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium">phone</label>
             <input
