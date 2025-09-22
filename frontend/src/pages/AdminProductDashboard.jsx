@@ -2,24 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Search, Plus, Edit3, Trash2, ShoppingBag, Filter } from "lucide-react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import ProductItem from "./ProductItem";
+import ProductItem from "./composent/product/AdminProductCard";
 
-const ProductList = ({ onSelect = () => {} }) => {
+const AdminProductDashboard = ({ onSelect = () => {} }) => {
   const [produits, setProduits] = useState([]);
   const [filtre, setFiltre] = useState("");
   const navigate = useNavigate();
+
+  // Récupération des produits depuis le backend
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/produits/home", {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("Réponse backend :", res.data);
-        console.log("🧐 Données produits :", res.data);
-        console.log(
-          "🧐 Données produits détaillées :",
-          JSON.stringify(res.data, null, 2)
-        );
         setProduits(res.data);
       })
       .catch((err) => {
@@ -27,6 +23,7 @@ const ProductList = ({ onSelect = () => {} }) => {
       });
   }, []);
 
+  // Supprimer un produit
   const handleDelete = (id) => {
     if (!window.confirm("Tu veux vraiment supprimer ce produit ?")) return;
 
@@ -42,9 +39,10 @@ const ProductList = ({ onSelect = () => {} }) => {
       });
   };
 
+  // Filtrage des produits par nom ou catégorie
   const produitsFiltres = produits.filter((produit) => {
     const name = produit.name ?? "";
-    const categorie = String(produit.categorieId ?? "");
+    const categorie = String(produit.categorieId.name ?? "");
     const filtreLower = filtre.toLowerCase();
 
     return (
@@ -227,4 +225,4 @@ const ProductList = ({ onSelect = () => {} }) => {
   );
 };
 
-export default ProductList;
+export default AdminProductDashboard;
