@@ -1,16 +1,27 @@
 import React from "react";
 import { trans, setLanguage } from "../../translations/index";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingCart, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../pages/composent/images/Logo de Respawn Gear.png";
 import DropdownMenu from "../composent/DropdownMenu/DropdownMenu";
 import CategoryMenu from "../composent/DropdownMenu/CategoryMenu";
-
+import SearchBar from "./SearchBar/SearchBar";
+import axios from "axios";
 function Header() {
   const [lang, setLang] = useState("fr");
   const navigate = useNavigate();
+  const [produits, setProduits] = useState([]);
 
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/produits/home_page")
+      .then((res) => setProduits(res.data))
+      .catch((err) =>
+        console.error("Erreur lors du chargement des produits :", err)
+      );
+  }, []);
   const handleClick = () => {
     navigate("/panier");
   };
@@ -26,8 +37,9 @@ function Header() {
     <div className="font-sans text-gray-800">
       {/* 🔝 Top Banner */}
       <div className="bg-black text-white py-2 text-sm flex items-center justify-center relative">
-        Summer Sale for All Swim Suits And Free Express Delivery – OFF 50%!
-        <span className="ml-2 font-bold underline">Shop Now</span>
+        <span className="ml-2 font-bold underline">
+          {trans("header.top_title")}
+        </span>
         <div className="absolute right-2">
           <select
             value={lang}
@@ -61,28 +73,10 @@ function Header() {
 
           {/* SearchBar + Icons */}
           <div className="flex items-center space-x-4">
-            {/* Search */}
-            <div className="relative w-64">
-              <input
-                type="search"
-                placeholder={trans("header.barre_de_recherche")}
-                className="w-full border rounded-md px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
+            <SearchBar
+              placeholder="Rechercher un produit..."
+              produits={produits}
+            />
 
             {/* Icons */}
             <button onClick={handleClickwishlist}>
