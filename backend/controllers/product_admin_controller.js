@@ -65,7 +65,7 @@ exports.createProduit = async (req, res) => {
 exports.updateProduit = async (req, res) => {
   try {
     // Récupération des champs envoyés depuis le frontend
-    const { name, description, price, categorie, stock, brand } = req.body;
+    const { name, description, price, categorie, stock, brandId } = req.body;
 
     // Mise à jour seulement des champs envoyés
     req.produit.name = name || req.produit.name;
@@ -73,7 +73,7 @@ exports.updateProduit = async (req, res) => {
     req.produit.price = price || req.produit.price;
     req.produit.categorie = categorie || req.produit.categorie;
     req.produit.stock = stock || req.produit.stock;
-    req.produit.brand = brand || req.produit.brand;
+    req.produit.brandId = brandId || req.produit.brandId;
 
     // Sauvegarde des modifications
     await req.produit.save();
