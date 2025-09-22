@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./output.css";
 import SignUp from "./pages/SignUp";
 import LoginPage from "./pages/LoginPage";
-import Dashboard from "./pages/Dashboard";
+
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Produit from "./pages/Produit";
@@ -26,7 +26,6 @@ function App() {
           <Route path="/category/:categorySlug" element={<CategoryPage />} />
           <Route path="/sign_up" element={<SignUp />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit_profile" element={<EditProfile />} />
           <Route

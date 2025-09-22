@@ -24,7 +24,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const res = axios.post("http://localhost:5000/api/register", {
+      const res = await axios.post("http://localhost:5000/api/register", {
         name,
         last_name,
         email,
@@ -109,11 +109,6 @@ const SignUp = () => {
             </button>
           </form>
           {error && <p style={{ color: "red" }}>{error}</p>}
-
-          <button className="mt-4 w-full border border-gray-300 rounded py-2 flex justify-center items-center space-x-2 hover:bg-gray-100 transition">
-            <img src="/google-icon.png" alt="Google" className="w-5 h-5" />
-            <span>Sign up with Google</span>
-          </button>
           <p className="mt-6 text-center text-gray-600">
             Already have account?{" "}
             <a href="/login" className="text-red-500 hover:underline">

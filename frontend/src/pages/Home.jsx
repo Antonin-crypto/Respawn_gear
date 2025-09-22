@@ -4,7 +4,7 @@ import { trans } from "../translations";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Header from "./composent/Header";
 import Footer from "../pages/composent/Footer";
@@ -23,9 +23,7 @@ export default function Home() {
       window.removeEventListener("languagechange", handleLangUpdate);
     };
   }, []);
-  const handleShowMore = () => {
-    setVisibleCount((prev) => prev + 4);
-  };
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/produits/home_page")
@@ -62,14 +60,8 @@ export default function Home() {
                 <p className="text-gray-400">Aucune image</p>
               )}
               <p className="font-medium">{product.name}</p>
-              <p className="font-medium">{product.description}</p>
               <p className="font-medium">{product.categorie?.name}</p>
-              <p className="text-red-500 font-bold">
-                ${product.price}{" "}
-                <span className="line-through text-gray-400">
-                  ${product.oldPrice}
-                </span>
-              </p>
+              <p className="text-red-500 font-bold">{product.price} €</p>
             </Link>
           ))}
         </div>
