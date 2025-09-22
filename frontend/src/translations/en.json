@@ -21,6 +21,7 @@
     "signupLink": "Sign up"
   },
   "header": {
+    "top_title": "Welcome to Respanw Gear",
     "big_title": "Summer Sale on all bath mice and free express delivery - 50% off!",
     "title": "Home",
     "title_2": "Contact",
@@ -41,12 +42,12 @@
   "categories": {
     "consoles": "Consoles",
     "accessoires": "Accessories",
-    "jeux_video": "Video Games",
-    "pc_gaming": "Gaming PC",
+    "jeux-video": "Video Games",
+    "pc-gaming": "Gaming PC",
     "composants": "Components",
     "ecrans": "Monitors",
     "claviers": "Keyboards",
-    "casques_audio_gaming": "Headsets & Gaming Audio",
+    "casques-audio-gaming": "Headsets & Gaming Audio",
     "souris": "Mice"
   },
   "Produits": {

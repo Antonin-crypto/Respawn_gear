@@ -21,6 +21,7 @@
     "signupLink": "Inscription"
   },
   "header": {
+    "top_title": "Bienvenue sur Respanw Gear",
     "big_title": "Soldes d'été pour tous les souris et livraison express gratuite - 50 % de réduction !",
     "title": "Accueil",
     "title_2": "Contacter",
@@ -41,12 +42,12 @@
   "categories": {
     "consoles": "Consoles",
     "accessoires": "Accessoires",
-    "jeux_video": "Jeux Vidéo",
-    "pc_gaming": "PC Gaming",
+    "jeux-video": "Jeux Vidéo",
+    "pc-gaming": "PC Gaming",
     "composants": "Composants",
     "ecrans": "Écrans",
     "claviers": "Claviers",
-    "casques_audio_gaming": "Casques & Audio Gaming",
+    "casques-audio-gaming": "Casques & Audio Gaming",
     "souris": "Souris"
   },
   "Produits": {
