@@ -6,6 +6,7 @@ const ProductForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     name_en: "",
@@ -13,13 +14,14 @@ const ProductForm = () => {
     description_en: "",
     price: "",
     categorieId: "",
+    brandId: "",
     stock: "",
     images: "",
   });
 
   const [images, setImages] = useState([]);
   const isEdit = Boolean(id);
-
+  // Charger les catégories
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/produits/categories", {
@@ -29,6 +31,19 @@ const ProductForm = () => {
       .catch((err) => console.error("Erreur catégories :", err));
   }, []);
 
+  // Charger les marques
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/produits/brands", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("Brands récupérées :", res.data);
+        setBrands(res.data);
+      })
+      .catch((err) => console.error("Erreur marques :", err));
+  }, []);
+  // Charger un produit en mode édition
   useEffect(() => {
     if (isEdit) {
       axios
@@ -160,6 +175,21 @@ const ProductForm = () => {
             {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>
                 {cat.name} / {cat.name_en}
+              </option>
+            ))}
+          </select>
+          <label className="font-medium">marque</label>
+          <select
+            name="brandId"
+            value={formData.brandId}
+            onChange={handleChange}
+            required
+            className="border p-2 rounded-md"
+          >
+            <option value="">-- Choisir une marque --</option>
+            {brands.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
               </option>
             ))}
           </select>
