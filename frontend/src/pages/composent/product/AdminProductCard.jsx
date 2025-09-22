@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ShoppingBag, X, Edit3, Trash2 } from "lucide-react";
 
-const ProductItem = ({ produit, onDelete, onEdit }) => {
+const AdminProductCard = ({ produit, onDelete, onEdit }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ const ProductItem = ({ produit, onDelete, onEdit }) => {
               {produit.name}
             </h3>
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-              {produit.categorie}
+              {produit.categorie?.name}
             </span>
           </div>
         </div>
@@ -81,7 +81,7 @@ const ProductItem = ({ produit, onDelete, onEdit }) => {
             </p>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Catégorie: </span>
-              {produit.categorie}
+              {produit.categorie?.name}
             </p>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Prix: </span>
@@ -94,4 +94,4 @@ const ProductItem = ({ produit, onDelete, onEdit }) => {
   );
 };
 
-export default ProductItem;
+export default AdminProductCard;
