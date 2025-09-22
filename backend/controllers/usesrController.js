@@ -75,7 +75,8 @@ exports.updateProfile = async (req, res) => {
   if (!errors.isEmpty())
     return res.status(400).json({ errors: errors.array() });
 
-  const { name, last_name, email, phone } = req.body;
+  const { name, last_name, email, phone, currentPassword, newPassword } =
+    req.body;
 
   try {
     const user = await User.findByPk(req.user.id);
@@ -84,7 +85,17 @@ exports.updateProfile = async (req, res) => {
     if (name) user.name = name;
     if (last_name) user.last_name = last_name;
     if (email) user.email = email;
-    if (phone) user.phone = phone;
+    if (phone !== undefined) user.phone = phone;
+
+    if (currentPassword && newPassword) {
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ error: "Mot de passe actuel incorrect" });
+      }
+
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(newPassword, salt);
+    }
 
     await user.save();
 

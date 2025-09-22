@@ -18,7 +18,6 @@ const authenticateToken = require("../backend/middleware/authenticateToken");
 
 // Initialisation des catégories et Marques dans la DB
 require("../backend/models/initCategories/initCategories");
-require("../backend/models/initCategories/initBrands");
 
 // Middlewares globaux
 app.use(express.json());

@@ -28,10 +28,14 @@ const updateValidationRules = [
   body("last_name").optional().trim().notEmpty().withMessage("Prémon requis"),
   body("email").optional().trim().isEmail().withMessage("email invalide"),
   body("phone")
-    .optional()
+    .optional({ checkFalsy: true })
     .trim()
-    .isMobilePhone()
-    .withMessage("Téléphone invalide"),
+    .custom((value) => {
+      if (!value) return true;
+      const regex = /^\d{10}$/;
+      if (!regex.test(value)) throw new Error("Téléphone invalide");
+      return true;
+    }),
 ];
 
 module.exports = {
