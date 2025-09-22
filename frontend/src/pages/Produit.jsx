@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import ProductList from "./composent/product/ProductList";
+import ProductList from "./AdminProductDashboard";
 import ProductDetail from "./composent/product/ProductDetail";
 import { CartContext } from "./contexts/CartContext";
 
